@@ -2,37 +2,67 @@
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* 스크롤 없애기 */
+body {
+  /* -ms-overflow-style: none; */
+  overflow: scroll;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+/* ::-webkit-scrollbar {
+  display: none;
+} */
+
+div {
+  box-sizing: border-box;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.black-nav {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  width: 100%;
+  background-color: black;
   color: white;
+  padding-left: 20px;
 }
 
-.App-link {
-  color: #61dafb;
+.createArticle {
+  padding-top: 25px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.createArticle-input {
+  height: 30px;
+  width: 60%;
+}
+
+.createArticle-button {
+  background-color: rgb(34, 33, 33);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  margin-left: 10px;
+  height: 35px;
+  width: 10%;
+}
+
+.list {
+  padding-left: 20px;
+  padding-bottom: 25px;
+  text-align: left;
+  border-bottom: 1px solid grey;
+}
+
+.modal {
+  margin-top: 20px;
+  background-color: #eee;
+  padding: 20px;
+  text-align: left;
+}
+
+.delete {
+  background-color: rgb(34, 33, 33);
+  color: white;
+  font-size: 15px;
+  border: none;
+  border-radius: 5px;
+  height: 50px;
+  width: 15%;
 }
