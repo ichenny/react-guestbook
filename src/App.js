@@ -2,20 +2,18 @@ import { useRef, useState } from "react";
 import { useEffect } from "react";
 import "./App.css";
 import Modal from "./components/Modal";
-import createArticle from "./components/CrateAtricle";
+import CreateArticle from "./components/CrateAtricle";
 
 function App() {
   // ------------------useState------------------
   let [comments, setComments] = useState([]);
-  let [count, setCount] = useState([0, 0, 0]);
   let [modal, setModal] = useState(false);
   let [modalTitle, setModalTitle] = useState(0);
   let [article, setArticle] = useState("");
 
   // ------------------함수------------------
   // 글 작성 버튼
-  const handleSubmit = (e) => {
-    // e.preventDefault();
+  const handleSubmit = () => {
     const requestOptions = {
       method: "POST",
       headers: {
@@ -29,6 +27,23 @@ function App() {
     };
     fetch("http://localhost:3001/guestBook", requestOptions).then((response) =>
       response.json()
+    );
+
+    window.location.reload();
+  };
+
+  // 좋아요 개수 변경 구현 미완료
+  const handleCount = (id) => {
+    // setCount(count++);
+    const requestOptions = {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        count: comments[id - 1].count + 1,
+      }),
+    };
+    fetch(`http://localhost:3001/guestBook/${id}`, requestOptions).then(
+      (response) => response.json().then((data) => console.log(data))
     );
 
     window.location.reload();
@@ -75,7 +90,7 @@ function App() {
       </div>
 
       {/* 새로운 글 추가 */}
-      <createArticle
+      <CreateArticle
         article={article}
         setArticle={setArticle}
         emptyInput={emptyInput}
@@ -95,9 +110,8 @@ function App() {
               {comment.comments}
               <span
                 onClick={(event) => {
-                  let copy = [...count];
-                  copy[index]++;
-                  setCount(copy);
+                  // setCount(count++);
+                  handleCount(comment.id);
                   event.stopPropagation();
                 }}
               >
