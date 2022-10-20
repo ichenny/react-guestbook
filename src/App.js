@@ -12,7 +12,7 @@ function App() {
   let [article, setArticle] = useState("");
 
   // ------------------함수------------------
-  // 글 작성 버튼
+  // 글 작성
   const handleSubmit = () => {
     const requestOptions = {
       method: "POST",
@@ -32,9 +32,8 @@ function App() {
     window.location.reload();
   };
 
-  // 좋아요 개수 변경 구현 미완료
+  // 좋아요 개수 변경
   const handleCount = (id) => {
-    // setCount(count++);
     const requestOptions = {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
@@ -49,8 +48,14 @@ function App() {
     window.location.reload();
   };
 
+  // 글 삭제
+  const handleDelete = (id) => {
+    fetch(`http://localhost:3001/guestBook/${id}`, { method: "DELETE" });
+    window.location.reload();
+  };
+
   // 모달창 띄우기
-  const onClick = () => {
+  const onModal = () => {
     if (modal === false) return setModal(!modal); // !modal 배웠다!!!!
     else if (modal === true) return setModal(!modal);
   };
@@ -86,7 +91,7 @@ function App() {
   return (
     <div className="App">
       <div className="black-nav">
-        <h4>GuestBook</h4>
+        <h2>GuestBook</h2>
       </div>
 
       {/* 새로운 글 추가 */}
@@ -98,19 +103,18 @@ function App() {
         inputRef={inputRef}
       />
 
-      {comments.map(function (comment, index) {
+      {comments.map(function (comment) {
         return (
           <div className="list" key={comment.id}>
             <h4
               onClick={() => {
-                onClick();
-                setModalTitle(index);
+                onModal();
+                setModalTitle(comment.id - 1);
               }}
             >
               {comment.comments}
               <span
                 onClick={(event) => {
-                  // setCount(count++);
                   handleCount(comment.id);
                   event.stopPropagation();
                 }}
@@ -124,14 +128,7 @@ function App() {
             <p>{comment.date}</p>
 
             {/* 글 삭제 */}
-            <button
-              className="delete"
-              onClick={() => {
-                let copy = [...comments];
-                copy.splice(index, 1);
-                setComments(copy);
-              }}
-            >
+            <button className="delete" onClick={() => handleDelete(comment.id)}>
               글 삭제
             </button>
           </div>

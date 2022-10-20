@@ -4,25 +4,19 @@
       "id": 1,
       "comments": "벌써 끝이 다가온다",
       "date": "10월 18일 화요일 12시 1분",
-      "count": 21
+      "count": 32
     },
     {
-      "comments": "test1",
-      "date": "10월 18일 화요일 19시 35분",
-      "count": 8,
+      "comments": "생기나?",
+      "date": "10월 20일 목요일 22시 52분",
+      "count": 20,
       "id": 2
     },
     {
-      "comments": "test2",
-      "date": "10월 18일 화요일 19시 35분",
-      "count": 6,
+      "comments": "test1",
+      "date": "10월 20일 목요일 22시 53분",
+      "count": 18,
       "id": 3
-    },
-    {
-      "comments": "test3",
-      "date": "10월 18일 화요일 20시 5분",
-      "count": 6,
-      "id": 4
     }
   ]
 }
