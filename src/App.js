@@ -2,6 +2,7 @@ import { useRef, useState, useEffect } from 'react';
 import './App.css';
 import Modal from './components/Modal';
 import CreateArticle from './components/CrateAtricle';
+import CommnetList from './components/CommnetList';
 
 function App() {
   // ------------------useState------------------
@@ -102,39 +103,17 @@ function App() {
         inputRef={inputRef}
       />
 
-      {comments.map(function (comment) {
-        return (
-          <div className="list" key={comment.id}>
-            <h4
-              role="presentation"
-              onClick={() => {
-                onModal();
-                setModalTitle(comment.id - 1);
-              }}
-            >
-              {comment.comments}
-              <span
-                role="presentation"
-                onClick={(event) => {
-                  handleCount(comment.id);
-                  event.stopPropagation();
-                }}
-              >
-                👍
-              </span>
-              {comment.count}
-            </h4>
-
-            {/* 현재날짜 */}
-            <p>{comment.date}</p>
-
-            {/* 글 삭제 */}
-            <button className="delete" onClick={() => handleDelete(comment.id)}>
-              글 삭제
-            </button>
-          </div>
-        );
-      })}
+      {/* 글 목록 */}
+      {comments.map((comment) => (
+        <CommnetList
+          key={comment.id}
+          comment={comment}
+          onModal={onModal}
+          setModalTitle={setModalTitle}
+          handleCount={handleCount}
+          handleDelete={handleDelete}
+        />
+      ))}
 
       {/* 글 클릭하면 모달 창 띄우기 */}
       {modal === true ? (
