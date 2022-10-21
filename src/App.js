@@ -1,23 +1,22 @@
-import { useRef, useState } from "react";
-import { useEffect } from "react";
-import "./App.css";
-import Modal from "./components/Modal";
-import CreateArticle from "./components/CrateAtricle";
+import { useRef, useState, useEffect } from 'react';
+import './App.css';
+import Modal from './components/Modal';
+import CreateArticle from './components/CrateAtricle';
 
 function App() {
   // ------------------useState------------------
   let [comments, setComments] = useState([]);
   let [modal, setModal] = useState(false);
   let [modalTitle, setModalTitle] = useState(0);
-  let [article, setArticle] = useState("");
+  let [article, setArticle] = useState('');
 
   // ------------------함수------------------
   // 글 작성
   const handleSubmit = () => {
     const requestOptions = {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         comments: article,
@@ -25,7 +24,7 @@ function App() {
         count: 0,
       }),
     };
-    fetch("http://localhost:3001/guestBook", requestOptions).then((response) =>
+    fetch('http://localhost:3001/guestBook', requestOptions).then((response) =>
       response.json()
     );
 
@@ -35,8 +34,8 @@ function App() {
   // 좋아요 개수 변경
   const handleCount = (id) => {
     const requestOptions = {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         count: comments[id - 1].count + 1,
       }),
@@ -50,7 +49,7 @@ function App() {
 
   // 글 삭제
   const handleDelete = (id) => {
-    fetch(`http://localhost:3001/guestBook/${id}`, { method: "DELETE" });
+    fetch(`http://localhost:3001/guestBook/${id}`, { method: 'DELETE' });
     window.location.reload();
   };
 
@@ -66,7 +65,7 @@ function App() {
     let todayMonth = now.getMonth() + 1;
     let todayDate = now.getDate();
 
-    const week = ["일", "월", "화", "수", "목", "금", "토"];
+    const week = ['일', '월', '화', '수', '목', '금', '토'];
     let dayOfWeek = week[now.getDay()];
     let hours = now.getHours();
     let minutes = now.getMinutes();
@@ -77,11 +76,11 @@ function App() {
   // 글 작성 버튼 클릭시 input 값 초기화
   let inputRef = useRef(null);
   const emptyInput = () => {
-    inputRef.current.value = "";
+    inputRef.current.value = '';
   };
 
   useEffect(() => {
-    fetch("http://localhost:3001/guestBook")
+    fetch('http://localhost:3001/guestBook')
       .then((res) => res.json())
       .then((data) => {
         setComments(data);
@@ -107,6 +106,7 @@ function App() {
         return (
           <div className="list" key={comment.id}>
             <h4
+              role="presentation"
               onClick={() => {
                 onModal();
                 setModalTitle(comment.id - 1);
@@ -114,6 +114,7 @@ function App() {
             >
               {comment.comments}
               <span
+                role="presentation"
                 onClick={(event) => {
                   handleCount(comment.id);
                   event.stopPropagation();
